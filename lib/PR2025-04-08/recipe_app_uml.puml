@@ -1,0 +1,156 @@
+@startuml
+skinparam linetype ortho
+
+class Notification{
+int notificationId
+user User
+String title
+String content
+bool read
+DateTime createdAt
+}
+
+interface UserNotificationRepository {
+{abstract} findNotificationsByUser(user): List<Notification>
+}
+
+interface AuthRepository {
+{abstract} registerUser(email,password,name): User
+{abstract} signIn(email,password): User
+}
+
+interface UserRepository {
+{abstract} updateProfile(user): User
+{abstract} userFollow(targetUser, user): User
+}
+
+interface UserRecipeRepository {
+{abstract} findRecipesByUser(userRecipes): List<Recipe>
+{abstract} findRecipesByBookmark(userBookmarks): List<Recipe>
+}
+
+class User {
+userId: int
+email : String
+password: String
+job: String
+name: String
+profileImage: String
+introduce: String
+recipes: List<int>
+bookmarks: List<int>
+follower: List<String>
+following: List<String>
+notifications: List<int>
+city: String
+}
+
+interface NotificationRepository{
+{abstract} createNotification(notification): Notification
+{abstract} deleteNotification(notificationId): Notification
+{abstract} readNotification(notificationId): Notification
+}
+
+
+class Comment{
+int commentId
+int recipeId
+User user
+String content
+bool read
+DateTime createdAt
+List<String> like
+List<String> dislike
+}
+
+
+
+interface CommentRepository{
+{abstract} findCommentsByRecipe(recipeId): List<Comment>
+{abstract} createCommentByRecipe(comment): Comment
+{abstract} updateComment(comment): Comment
+{abstract} deleteComment(commentId): void
+{abstract} likeComment(commentId, userEmail): Comment
+{abstract} dislikeComment(commentId, userEmail): Comment
+      }
+
+enum CategoryFilter {
+    Cereal
+    Vegetables
+    Dinner
+    Chinese
+    Local Dish
+    Fruit
+    BreakFast
+    Spanish
+    Lunch
+    Indian
+    Italian
+    Asian
+}
+
+enum TimeFilter {
+    Newest
+    oldest
+    Popularity
+}
+
+enum RateFilter {
+    5
+    4
+    3
+    2
+    1
+}
+
+class Ingredient {
+    String name
+    String weight
+}
+
+class Recipe {
+    int recipeId
+    String name
+    int cookTime
+    User chef
+    int commentCount
+    double rate
+    int serve
+    String video
+    String foodImage
+    CategoryFilter category
+    List<Ingredient> ingredients
+    List<String> steps
+}
+
+interface RecipeRepository {
+{abstract} Recipe createRecipe(recipe)
+{abstract} Recipe updateRecipe(recipe)
+{abstract} void deleteRecipe(recipeId)
+{abstract} Recipe rateRecipe(recipeId, rate)
+{abstract} List<Recipe> indRecipesByFilter({timeFilter, rateFilter, categoryFilter, title, chef})
+{abstract} List<Recipe> findRecipes()
+{abstract} Recipe findRecipeById(recipeId)
+}
+
+RecipeRepository ..> Recipe : 의존
+UserRecipeRepository ..> Recipe : 의존
+UserRecipeRepository ..> User : 의존
+
+Recipe --> CategoryFilter : 연관
+Recipe --> TimeFilter : 연관
+Recipe --> RateFilter : 연관
+Recipe --> Ingredient : 연관
+
+Comment --> User : 연관
+Recipe --> User : 연관
+Recipe <-- Comment : 연관
+Notification --> User : 연관
+CommentRepository ..> Comment : 의존
+NotificationRepository ..> Notification : 의존
+UserNotificationRepository ..> Notification : 의존
+UserNotificationRepository ..> User : 의존
+User <.. AuthRepository: 의존
+User <.. UserRepository: 의존
+
+@enduml
