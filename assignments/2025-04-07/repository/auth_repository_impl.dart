@@ -24,7 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (!emailReg.hasMatch(email)) {
         return ResultAuth.error(RegistrationError.invalidEmail);
       }
-      if (password.length <= 6) {
+      if (password.length < 6) {
         return ResultAuth.error(RegistrationError.weakPassword);
       }
       final UserDto userInfo = await _authRemoteDataSource.registerUser(

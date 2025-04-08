@@ -5,9 +5,9 @@ extension UserMapper on UserDto {
   User toUser() {
     return User(
       id: id ?? '',
-      email: email,
-      password: password,
-      createdAt: DateTime.parse(createdAt),
+      email: email ?? '',
+      password: password ?? '',
+      createdAt: DateTime.parse(createdAt ?? '') ?? DateTime.now(),
       errorMessage: errorMessage ?? '네트워크 오류',
     );
   }

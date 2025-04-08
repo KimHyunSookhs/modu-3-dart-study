@@ -5,11 +5,11 @@ part 'user_dto.g.dart';
 //항상성공하는 형태만되니까 실패하면 에러메세지반환
 @JsonSerializable(explicitToJson: true)
 class UserDto {
-  final String id;
-  final String email;
-  final String password;
-  final String createdAt;
-  final String errorMessage;
+  final String? id;
+  final String? email;
+  final String? password;
+  final String? createdAt;
+  final String? errorMessage;
 
   factory UserDto.fromJson(Map<String, dynamic> json) =>
       _$UserDtoFromJson(json);

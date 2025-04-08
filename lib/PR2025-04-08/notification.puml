@@ -1,0 +1,67 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam linetype ortho
+
+
+class Notification{
+int notificationId
+User user
+String title
+String content
+bool read
+DateTime createdAt
+}
+
+class NotificationRepository{
+      createNotification(notification): Notification
+      deleteNotification(notificationId): Notification
+      readNotification(notificationId): Notification
+}
+
+class User
+{
+int userId
+String email
+String password
+String job
+String name
+String profileImage
+String introduce
+List<int> recipes:
+List<int> bookmarks:
+List<String> follower:
+List<String> following:
+List<int> notifications
+String city:
+}
+
+
+class Comment{
+
+int commentId
+int recipeId
+User user
+String content
+bool read
+DateTime createdAt
+List<String> like
+List<String> dislike
+}
+
+
+
+class CommentRepository{
+      findCommentsByRecipe(recipeId): List<Comment>
+      createCommentByRecipe(comment): Comment
+      updateComment(comment): Comment
+      deleteComment(commentId): void
+      likeComment(commentId, userEmail): Comment
+      dislikeComment(commentId, userEmail): Comment
+      }
+
+
+Comment --> User : 연관
+Notification --> User : 연관
+CommentRepository ..> Comment : 의존
+NotificationRepository ..> Notification : 의존
+@enduml
