@@ -1,5 +1,6 @@
 @startuml
 skinparam linetype ortho
+scale 0.5
 
 class Notification{
 int notificationId
