@@ -1,5 +1,6 @@
-import 'address.dart';
-import 'company.dart';
+import 'package:intl/intl.dart';
+import 'package:modu_3_dart_study/PR2025-03-31/model/users/address.dart';
+import 'package:modu_3_dart_study/PR2025-03-31/model/users/company.dart';
 
 class User {
   int id;

@@ -1,4 +1,4 @@
-import 'geo.dart';
+import 'package:modu_3_dart_study/PR2025-03-31/model/users/geo.dart';
 
 class Address {
   final String street;

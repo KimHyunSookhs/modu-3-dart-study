@@ -10,12 +10,9 @@ void main() {
   const String release_dat = '2024-12-19';
 
   group('Mock데이터로 Movie Test', () {
-    final MockHttpClientImpl mockHttpClientImpl = MockHttpClientImpl();
-    final MovieRepository repository = MovieRepositoryImpl(
-      movieDataSource: mockHttpClientImpl,
-    );
-
-    test('Mock데이터와 생성된 파일이 같은지 확인 test', () async {
+    MockHttpClientImpl mockHttpClientImpl = MockHttpClientImpl();
+    MovieRepository repository = MovieRepositoryImpl(mockHttpClientImpl);
+    test('Mock데이터로 Movie Test', () async {
       final movie = await repository.getMovieInfoList();
       expect(movie.first.id, id);
       expect(movie.first.title, title);
